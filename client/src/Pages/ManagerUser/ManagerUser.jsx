@@ -27,6 +27,7 @@ import {
 } from '@mui/material';
 import { Add, Edit, Delete, Search } from '@mui/icons-material';
 import {
+    requestAddUser,
     requestDeleteUserAdmin,
     requestGetAdmin,
     requestGetAllUser,
@@ -110,12 +111,13 @@ function ManagerUser() {
     };
 
     // Handle CRUD operations
-    const handleAddUser = () => {
+    const handleAddUser = async () => {
         const newUser = {
             ...currentUser,
             id: users.length > 0 ? Math.max(...users.map((user) => user.id)) + 1 : 1,
             createdAt: new Date().toISOString().split('T')[0],
         };
+        await requestAddUser(newUser)
         setUsers([...users, newUser]);
         handleAddDialogClose();
     };

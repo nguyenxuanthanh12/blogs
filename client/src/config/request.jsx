@@ -11,6 +11,11 @@ export const requestRegister = async (data) => {
     return response.data;
 };
 
+export const requestAddUser = async (data) => {
+    const response = await request.post('/api/add-user', data);
+    return response.data;
+};
+
 export const requestLogin = async (data) => {
     const response = await request.post('/api/login', data);
     return response.data;

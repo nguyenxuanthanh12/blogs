@@ -13,6 +13,7 @@ function routes(app) {
     app.get('/api/get-all-user', usersRoutes);
     app.post('/api/update-user-admin', usersRoutes);
     app.delete('/api/delete-user-admin', usersRoutes);
+    app.post('/api/add-user', usersRoutes)
 
     app.post('/api/create-blog', blogRoutes);
     app.get('/api/get-all-blog', blogRoutes);

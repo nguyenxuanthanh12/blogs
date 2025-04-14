@@ -16,6 +16,7 @@ router.get('/api/get-all-user', authAdmin, asyncHandler(controllerUsers.getAllUs
 
 router.post('/api/update-user-admin', authAdmin, asyncHandler(controllerUsers.updateUserAdmin));
 router.delete('/api/delete-user-admin', authAdmin, asyncHandler(controllerUsers.deleteUserAdmin));
+router.post('/api/add-user', authAdmin, asyncHandler(controllerUsers.addUser));
 
 router.get('/admin', authAdmin, (req, res) => {
     return res.status(200).json({ message: true });

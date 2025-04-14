@@ -178,6 +178,29 @@ class UsersController {
         await modelUser.findByIdAndDelete(idUser);
         new OK({ message: 'Xóa người dùng thành công' }).send(res);
     }
+
+    async addUser(req , res){
+        const { fullName, email, password ,  isAdmin } = req.body;
+
+        if (!fullName || !email || !password || ! isAdmin) {
+            throw new BadRequestError('Vui lòng nhập đày đủ thông tin');
+        }
+        const user = await modelUser.findOne({ email });
+        if (user) {
+            throw new BadRequestError('Người dùng đã tồn tại');
+        } else {
+            const saltRounds = 10;
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const passwordHash = bcrypt.hashSync(password, salt);
+            const newUser = await modelUser.create({
+                fullName,
+                email,
+                password: passwordHash,
+                isAdmin,
+            });
+            new Created({ message: 'Đăng ký thành công', metadata: { token, refreshToken } }).send(newUser);
+        }
+    }
 }
 
 module.exports = new UsersController();

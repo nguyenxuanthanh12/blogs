@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Header from '../../Components/Header/Header';
 import styles from './ManagerUser.module.scss';
 import classNames from 'classnames/bind';
+import { ToastContainer, toast } from 'react-toastify';
+
 import {
     Container,
     Paper,
@@ -36,7 +38,6 @@ import {
 
 import dayjs from 'dayjs';
 
-import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -117,9 +118,15 @@ function ManagerUser() {
             id: users.length > 0 ? Math.max(...users.map((user) => user.id)) + 1 : 1,
             createdAt: new Date().toISOString().split('T')[0],
         };
-        await requestAddUser(newUser)
-        setUsers([...users, newUser]);
-        handleAddDialogClose();
+        try {
+            await requestAddUser(newUser)
+            setUsers([...users, newUser]);
+            await fetchData()
+            handleAddDialogClose();
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+       
     };
 
     const handleUpdateUser = async () => {

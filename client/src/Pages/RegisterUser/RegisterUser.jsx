@@ -86,8 +86,8 @@ function RegisterUser() {
         e.preventDefault();
         if (validate()) {
             try {
-                const res = await requestRegister(formData);
-                toast.success(res.metadata.message);
+               await requestRegister(formData);
+                toast.success("Đăng ký thành công");
             } catch (error) {
                 toast.error(error.response.data.message);
             }

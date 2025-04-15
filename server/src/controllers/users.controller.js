@@ -198,7 +198,7 @@ class UsersController {
                 password: passwordHash,
                 isAdmin,
             });
-            new Created({ message: 'Đăng ký thành công', metadata: newUser}).send(newUser);
+            new Created({ message: 'Đăng ký thành công', metadata: newUser}).send(res);
         }
     }
 }
